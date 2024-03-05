@@ -30,7 +30,8 @@ def check_password():
         ):
             st.session_state["password_correct"] = True
             del st.session_state["password"]  # Don't store the username or password.
-            del st.session_state["username"]
+            st.session_state["user"] = st.session_state["username"]
+
         else:
             st.session_state["password_correct"] = False
 
@@ -94,6 +95,11 @@ with st.form(key='my_form'):
         df = df.withColumn(
             "id",
             _random_id(),
+        )
+
+        df = df.withColumn(
+            "username",
+            F.lit(st.session_state.get("user", None)),
         )
 
         df.write.mode("append").save_as_table('dhac_ingress.input_data')
