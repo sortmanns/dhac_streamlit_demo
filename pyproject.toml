@@ -31,6 +31,7 @@ classifiers = [ # ToDo: Modify according to your needs!
 # direct dependencies of this package, installed when users `pip install dhac_streamlit_demo` later.
 dependencies = [ # ToDo: Modify according to your needs!
     "typer",
+    "streamlit"
     # "numpy",
     # "matplotlib",
     # "seaborn",
