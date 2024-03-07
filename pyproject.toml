@@ -33,7 +33,8 @@ dependencies = [ # ToDo: Modify according to your needs!
     "typer",
     "streamlit",
    " snowflake-snowpark-python",
-    "streamlit_authenticator"
+    "streamlit_authenticator",
+    "streamlit-keycloak"
     # "numpy",
     # "matplotlib",
     # "seaborn",
