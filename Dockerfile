@@ -1,4 +1,4 @@
-FROM python:3.10
+FROM python:3.10-slim
 
 # for streamlit
 ENV LC_ALL=C.UTF-8

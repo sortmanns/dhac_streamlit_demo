@@ -34,7 +34,9 @@ dependencies = [ # ToDo: Modify according to your needs!
     "streamlit",
    " snowflake-snowpark-python",
     "streamlit_authenticator",
-    "streamlit-keycloak"
+    "streamlit-keycloak",
+    "firebase",
+    "firebase-admin"
     # "numpy",
     # "matplotlib",
     # "seaborn",

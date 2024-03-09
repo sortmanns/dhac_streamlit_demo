@@ -2,3 +2,5 @@ streamlit
 snowflake-snowpark-python
 streamlit_authenticator
 streamlit-keycloak
+firebase
+firebase-admin
