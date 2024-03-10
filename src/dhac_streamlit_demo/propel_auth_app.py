@@ -6,7 +6,7 @@ from streamlit.web.server.websocket_headers import _get_websocket_headers
 
 
 # Load the YAML file
-with open('/Users/sortmanns/git/work/dhac_streamlit_demo/src/.secrets/propelAuthKey.yaml', 'r') as file:
+with open('/src/.secrets/propelAuthKey.yaml', 'r') as file:
     data = yaml.safe_load(file)
 
 api_key = data['api_key']

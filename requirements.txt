@@ -1,0 +1,5 @@
+typer~=0.9.0
+streamlit~=1.31.1
+propelauth-py
+requests~=2.31.0
+PyYAML~=6.0.1

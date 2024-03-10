@@ -15,7 +15,7 @@ async function loadApiKeyFromYaml(filePath) {
 }
 
 async function init() {
-  const api_key = await loadApiKeyFromYaml('/Users/sortmanns/git/work/dhac_streamlit_demo/src/.secrets/propelAuthKey.yaml');
+  const api_key = await loadApiKeyFromYaml('./propelAuthKey.yaml');
 
   // Now initialize your auth proxy with the loaded API key
     await initializeAuthProxy({
@@ -24,7 +24,7 @@ async function init() {
         proxyPort: 8000,
         urlWhereYourProxyIsRunning: 'http://localhost:8000',
         target: {
-            host: 'localhost',
+            host: 'host.docker.internal',
             port: 8501,
             protocol: 'http:'
         },
