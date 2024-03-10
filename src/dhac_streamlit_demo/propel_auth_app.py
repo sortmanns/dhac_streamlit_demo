@@ -54,27 +54,6 @@ class Auth:
 
         return response.ok
 
-    def get_username(self):
-        refresh_token = get_refresh_token()
-
-        # Set up the headers with the Authorization token
-        headers = {
-            "Authorization": f"Bearer {refresh_token}"
-        }
-
-        # The URL might change based on your PropelAuth setup and version
-        url = self.auth_url
-
-        response = requests.get(url, headers=headers)
-
-        if response.status_code == 200:
-            user_info = response.json()
-            username = user_info.get("username")
-
-            return username
-        else:
-            return None
-
 
 def get_access_token():
     return get_cookie("__pa_at")
@@ -156,11 +135,9 @@ with st.form(key='my_form'):
             _random_id(),
         )
 
-        username = auth.get_username()
-
         df = df.withColumn(
             "username",
-            F.lit(username),
+            F.lit(user.user_id),
         )
 
         df.write.mode("append").save_as_table('dhac_ingress.input_data')
