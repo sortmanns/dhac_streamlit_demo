@@ -47,6 +47,10 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 
+# Secrets
+.secrets/
+.streamlit/
+
 # Translations
 *.mo
 *.pot
@@ -111,3 +115,6 @@ src/dhac_streamlit_demo/_version.py
 # json
 package-lock.json
 package.json
+
+# Node
+node_modules/

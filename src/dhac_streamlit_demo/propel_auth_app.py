@@ -1,7 +1,15 @@
 import requests
 import streamlit as st
+import yaml
 from propelauth_py import UnauthorizedException, init_base_auth
 from streamlit.web.server.websocket_headers import _get_websocket_headers
+
+
+# Load the YAML file
+with open('/Users/sortmanns/git/work/dhac_streamlit_demo/src/.secrets/propelAuthKey.yaml', 'r') as file:
+    data = yaml.safe_load(file)
+
+api_key = data['api_key']
 
 
 class Auth:
@@ -66,7 +74,7 @@ def get_cookie(cookie_name):
 
 auth = Auth(
     "https://560282212.propelauthtest.com",
-    "e5db4c793b13faf8ae7a1c2b337722bfc63e1e8521c6cd6f2782fb709ec868846e401c688bf3cc07f4881b14eb684ad4",
+    api_key,
 )
 
 user = auth.get_user()
