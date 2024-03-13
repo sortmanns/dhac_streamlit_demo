@@ -3,7 +3,7 @@ RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
 WORKDIR /home/node/app
 COPY package*.json ./
 COPY src/proxy/proxy.mjs .
-COPY src/.secrets/propelAuthKey.yaml .
+# COPY src/.secrets/propelAuthKey.yaml .
 RUN chmod -R 777 /home/node/app
 USER node
 RUN npm install

@@ -15,14 +15,14 @@ async function loadApiKeyFromYaml(filePath) {
 }
 
 async function init() {
-  const api_key = await loadApiKeyFromYaml('./propelAuthKey.yaml');
+  const api_key = await loadApiKeyFromYaml('src/.secrets/propelAuthKey.yaml');
 
   // Now initialize your auth proxy with the loaded API key
     await initializeAuthProxy({
         authUrl: "https://560282212.propelauthtest.com",
         integrationApiKey: api_key,
         proxyPort: 8000,
-        urlWhereYourProxyIsRunning: 'https://dhac-proxy-5zekon4u2a-ey.a.run.app',
+        urlWhereYourProxyIsRunning: 'https://dhac-proxy-2-5zekon4u2a-ey.a.run.app',
         target: {
             host: '0.0.0.0',
             port: 8501,

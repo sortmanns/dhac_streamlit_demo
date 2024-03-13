@@ -11,7 +11,7 @@ RUN pip install -U pip && \
 
 # Copy app code
 COPY src /src
-COPY .streamlit/secrets.toml /src/.streamlit/secrets.toml
+# COPY .streamlit/secrets.toml /src/.streamlit/secrets.toml
 # Set working directory
 WORKDIR /src
 
