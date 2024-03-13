@@ -22,7 +22,7 @@ async function init() {
         authUrl: "https://560282212.propelauthtest.com",
         integrationApiKey: api_key,
         proxyPort: 8000,
-        urlWhereYourProxyIsRunning: 'https://dhac-proxy-2-5zekon4u2a-ey.a.run.app',
+        urlWhereYourProxyIsRunning: 'https://ipcl-proxy-5zekon4u2a-ey.a.run.app',
         target: {
             host: '0.0.0.0',
             port: 8501,

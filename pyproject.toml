@@ -41,7 +41,8 @@ dependencies = [ # ToDo: Modify according to your needs!
     "requests",
     "requests-toolbelt",
     "isort",
-    "ruff"
+    "ruff",
+    "numpy"
     # "numpy",
     # "matplotlib",
     # "seaborn",
