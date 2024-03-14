@@ -61,7 +61,7 @@ col1, col2 = st.columns(2)
 
 # Column 1
 with col1:
-    geschlecht = st.selectbox('Geschlecht', ['Male', 'Female'])
+    geschlecht = st.selectbox('Geschlecht', ['Male', 'Female', 'n.a.'])
 with col2:
     alter = st.selectbox('Alter', [x for x in range(0, 100)])
 
