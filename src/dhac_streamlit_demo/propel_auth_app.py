@@ -1,12 +1,14 @@
+from datetime import datetime
 import uuid
 
 import numpy as np
+import pytz
 import requests
 import streamlit as st
 import yaml
 from propelauth_py import UnauthorizedException, init_base_auth
 from snowflake.snowpark.session import _get_active_sessions
-from snowflake.snowpark.types import StructType, StructField, StringType, IntegerType, DoubleType
+from snowflake.snowpark.types import StructType, StructField, StringType, IntegerType, DoubleType, TimestampType
 from streamlit.web.server.websocket_headers import _get_websocket_headers
 from snowflake.snowpark import functions as F
 
@@ -129,7 +131,7 @@ with col2:
     Achse = st.number_input('Achse', min_value=0, max_value=180, value=90, step=1)
 
 # Customizing the Submit button inside st.form
-with st.form(key='my_form'):
+with (st.form(key='my_form')):
     submit_button = st.form_submit_button('Submit', help='Click to submit the form')
 
     # Check if the form is submitted
@@ -192,7 +194,7 @@ with st.form(key='my_form'):
 
         # id_udf = F.udf(_random_id, return_type=StringType())
         df = df.withColumn(
-            "patient_id",
+            "eye_id",
             _random_id(),
         )
 
@@ -201,7 +203,29 @@ with st.form(key='my_form'):
             F.lit(user.user_id),
         )
 
+        berlin_tz = pytz.timezone('Europe/Berlin')
+        created_at_berlin = datetime.now(berlin_tz)
+
+        df = df.withColumn(
+            "created_at",
+            F.lit(created_at_berlin).cast(TimestampType())
+        )
+
         df.write.mode("append").save_as_table('app_ingress.input_data')
+
+        eye_df = session.table('app_ingress.input_data'
+                               ).select("eye_id", "created_at").filter(
+                                    (F.col("user_id") == user.user_id)
+                                ).groupBy("eye_id").agg(
+                                    F.max("created_at").alias("created_at")
+                                )
+
+        eye_id = eye_df[['eye_id']].collect()[0][0]
+
+        df = df.withColumn(
+            "eye_id",
+            F.lit(eye_id),
+        )
 
         df = df.withColumn(
             "sts_cbid_implS",
@@ -217,12 +241,10 @@ with st.form(key='my_form'):
                 "sts_cbid_implS") - 0.63335823 * F.col("sts_cbid_lr")
         )
 
-
-
-        result_df = df.select("user_id", "patient_id", 'sts_cbid_implS', 'sts_cbid_lr', 'vault', F.current_date().alias("created_at"))
+        result_df = df.select("user_id", "eye_id", 'sts_cbid_implS', 'sts_cbid_lr', 'vault', "created_at")
         result_df.write.mode("append").save_as_table('model_results.model_v1')
 
         # Display the result in the app
         st.write(f'Predicted Vault for implant size: {implant_size}:')
-        st.dataframe(df.select("user_id", "patient_id", "vault", F.current_date().alias("created_at")))
+        st.dataframe(df.select("user_id", "eye_id", "vault", "created_at"))
         st.success('Data successfully submitted to Snowflake!')
